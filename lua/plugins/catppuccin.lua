@@ -1,0 +1,90 @@
+return {
+  "catppuccin/nvim",
+  lazy = true,
+  name = "catppuccin",
+  opts = {
+    flavour = "macchiato",
+    darkmode = true,
+    transparent_background = false,
+    show_end_of_buffer = false,
+    term_colors = true,
+    dim_inactive = {
+      enabled = true,
+      shade = "dark",
+      percentage = 0.1,
+    },
+    styles = {
+      comments = { "italic" },
+      conditionals = { "italic" },
+      loops = {},
+      functions = {},
+      keywords = {},
+      strings = {},
+      variables = {},
+      numbers = {},
+      booleans = {},
+      properties = {},
+      types = {},
+      operators = {},
+    },
+    color_overrides = {},
+    custom_highlights = function(colors)
+      return {
+        ["@Indntifier"] = { fg = colors.text, style = {} },
+        ["@variable"] = { fg = colors.text, style = {} },
+        ["@parameter"] = { fg = colors.teal },
+        -- ["@property"] = { fg = colors.red, style = {} },
+        ["@type"] = { fg = colors.yellow },
+        ["@lsp.typemod.variable.readonly"] = { fg = colors.yellow },
+        ["@function.builtin"] = { fg = colors.blue },
+        ["@property.gotmpl"] = { fg = colors.yellow },
+        -- ["@punctuation.delimiter.gotmpl"] = { fg = colors.peach },
+      }
+    end,
+    lsp_styles = {
+      underlines = {
+        errors = { "undercurl" },
+        hints = { "undercurl" },
+        warnings = { "undercurl" },
+        information = { "undercurl" },
+      },
+    },
+    integrations = {
+      aerial = true,
+      alpha = true,
+      cmp = true,
+      dashboard = true,
+      flash = true,
+      fzf = true,
+      grug_far = true,
+      gitsigns = true,
+      headlines = true,
+      illuminate = true,
+      indent_blankline = { enabled = true },
+      leap = true,
+      lsp_trouble = true,
+      mason = true,
+      mini = true,
+      navic = { enabled = true, custom_bg = "lualine" },
+      neotest = true,
+      neotree = true,
+      noice = true,
+      notify = true,
+      snacks = true,
+      telescope = true,
+      treesitter_context = true,
+      which_key = true,
+    },
+  },
+  specs = {
+    {
+      "akinsho/bufferline.nvim",
+      optional = true,
+      opts = function(_, opts)
+        if (vim.g.colors_name or ""):find("catppuccin") then
+          opts.highlights = require("catppuccin.special.bufferline").get_theme()
+        end
+      end,
+    },
+  },
+}
